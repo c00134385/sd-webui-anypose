@@ -41,14 +41,17 @@ class Script(scripts.Script):
     def ui(self, is_img2img):
         print(f'------------------------------------------------ title: AnyPose')
         if(is_img2img):
-            eid='anypose-view1'
+            eid='anypose-view2'
             tid='anypose-area2'
+            pid='anypose-textarea-pose2'
         else:
-            eid='anypose-view2'     
-            tid='anypose-area1'           
+            eid='anypose-view1'     
+            tid='anypose-area1'  
+            pid='anypose-textarea-pose1'         
         with gr.Row(elem_id=eid):
             with gr.Accordion(label="AnyPose Picker", open=False):
-                textarea = gr.TextArea(self.json, elem_id=tid) 
+                textarea = gr.TextArea(self.json, elem_id=tid, visible=False)
+                poseTextArea = gr.TextArea(self.json, elem_id=pid) 
                 with gr.Column(scale=4,elem_id="anypose-optit"):
                     btnreload=gr.Button('🔄',elem_classes="anypose-reload sm secondary gradio-button svelte-1ipelgc")
                     gr.Button('清空正面提示词', variant="secondary",elem_classes="anypose-clear")

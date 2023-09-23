@@ -18,7 +18,6 @@ function initView(){
     Elements.txt2img.appendChild(Elements.anyPoseView1)
     Elements.img2img.appendChild(Elements.anyPoseView2)
 
-
     Elements.btnReload= document.querySelectorAll('.anypose-reload');
     Elements.btnReload.forEach((item,index) => {
         item.dataset.page=index
@@ -40,7 +39,7 @@ async function initData(){
     let val1 = document.querySelector("#anypose-area1 textarea").value
     let val2 = document.querySelector("#anypose-area2 textarea").value
     let jsonstr = val1||val2
-    console.log('jsonstr:', jsonstr)   
+    console.log('jsonstr**:', jsonstr)   
     if (jsonstr) {
         initNodes(jsonstr, Elements.btnReload[0])
         initNodes(jsonstr, Elements.btnReload[1])

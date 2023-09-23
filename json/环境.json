@@ -1,9 +1,4 @@
 ﻿{
-	"春天": "in  spring",
-	"夏天": "in  summer",
-	"秋天": "in  autumn",
-	"冬天": "in  winter",
-	"黄昏": "dusk",
-	"夜晚": "night",
-	"秋景": "(autumn maple forest:1.3),(very few fallen leaves),(path)"
+	"001": "001.json",
+	"002": "002.json"
 }

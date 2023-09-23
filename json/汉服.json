@@ -1,18 +1,6 @@
 ﻿{
-  "召唤唐风": "hanfu, tang style outfits,<lora:hanfuTang_v32:0.7>",
-  "橙色上杉": "orange upper shan",
-  "红色上杉": "red upper shan",
-  "绿色上杉": "green upper shan",
-  "蓝色上杉": "blue upper shan",
-  "粉色上杉": "pink upper shan",
-  "黄色上杉": "yellow upper shan",
-  "白色上杉": "white upper shan",
-  "淡蓝上杉": "light blue upper shan",
-  "浅绿上杉": "light green upper shan",
-  "浅红上杉": "light red upper shan",
-  "青蓝上杉": "cyan blue upper shan",
-  "浅紫上杉": "light purple upper shan",
-  "黑蓝上杉": "black with blue upper shan",
-  "橙白上杉": "white with orange upper shan",
-  "粉黑上杉": "pink with black upper shan"
+  "001": "001.json",
+  "002": "002.json",
+  "003": "002.json",
+  "004": "002.json"
 }
