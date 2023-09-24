@@ -1,5 +1,7 @@
 function initElements() {
     let Elements = {
+        txt2img_anypose: getGradioElement('#txt2img_anypose'),
+        img2img_anypose: getGradioElement('#img2img_anypose'),
         anyPoseView1: getGradioElement('#anypose-view1'),
         anyPoseView2: getGradioElement('#anypose-view2'),
         txt2img: getGradioElement("#txt2img_prompt_container"),
@@ -15,17 +17,17 @@ function getGradioElement(key) {
 
 function initView(){
     let Elements = initElements()
-    Elements.txt2img.appendChild(Elements.anyPoseView1)
-    Elements.img2img.appendChild(Elements.anyPoseView2)
+    Elements.txt2img.appendChild(Elements.txt2img_anypose)
+    Elements.img2img.appendChild(Elements.img2img_anypose)
 
-    Elements.btnReload= document.querySelectorAll('.anypose-reload');
-    Elements.btnReload.forEach((item,index) => {
-        item.dataset.page=index
-        item.addEventListener('click', () => {  
-            console.log('reload is clicked.')
-            initData()
-        })
-    })
+    // Elements.btnReload= document.querySelectorAll('.anypose-reload');
+    // Elements.btnReload.forEach((item,index) => {
+    //     item.dataset.page=index
+    //     item.addEventListener('click', () => {  
+    //         console.log('reload is clicked.')
+    //         initData()
+    //     })
+    // })
 }
 
 async function initData(){
@@ -118,7 +120,7 @@ function initNodes(jsonstring, btnreloadDom) {
 
 onUiLoaded(async => {
     initView()
-    initData()
+    // initData()
 })
 
 
