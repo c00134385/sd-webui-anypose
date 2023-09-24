@@ -18,7 +18,7 @@ path1 = work_basedir + r"/json"
 path2 = work_basedir + r"/yours"
 pathrandom = work_basedir + r"/random"
 assetsPath = work_basedir + r"/assets"
-
+posesPath = work_basedir + r"/poses"
 eps = 0.01
 
 
@@ -289,6 +289,23 @@ def draw_facepose(canvas: np.ndarray, keypoints: Union[List[Keypoint], None]) ->
             cv2.circle(canvas, (x, y), 3, (255, 255, 255), thickness=-1)
     return canvas
 
+def findAllFiles():
+    dic = {}
+    basedir = os.path.normpath(posesPath)
+    for f in os.listdir(basedir):
+        filepath = os.path.join(basedir, f)
+        if os.path.isdir(filepath):
+            dic1 = {}
+            for ff in os.listdir(filepath):
+                # 获取文件扩展名
+                file_name, file_ext = os.path.splitext(ff)
+                # print(f'{file_name} {file_ext}')
+                # 判断文件扩展名是否为json格式
+                if file_ext.lower() == '.json':
+                    # print(f'file-name: {file_name}')
+                    dic1[file_name] = os.path.join(filepath, ff)
+            dic[f] = dic1
+    return json.dumps(dic, ensure_ascii=False)
 
 def loadAssetsFiles():
     dic = {}
@@ -310,7 +327,7 @@ def loadJsonFiles(path, dic):
 
 
 class Script(scripts.Script):
-    json = loadAssetsFiles()
+    json = findAllFiles()
     poseImage = None
 
     def title(self):
@@ -319,12 +336,9 @@ class Script(scripts.Script):
     def show(self, is_img2img):
         return scripts.AlwaysVisible
 
-    # def showPose(src):
-    #     print(f'id: {src}')
-    #     pass
     def processPoseJson(self, src):
         file_name, file_ext = os.path.splitext(src)
-
+        print(f'{src} {file_name} {file_ext}')
         dest = os.path.join(assetsPath, src)
         dest = os.path.normpath(dest)
         print(f'dest: {dest} {os.path.exists(dest)}')
@@ -332,18 +346,12 @@ class Script(scripts.Script):
             f = open(dest, 'r')
             json_string = f.read()
             poses, height, width = decode_json_as_poses(json_string)
-            # print(f'{poses} {height} {width}')
             poses = draw_poses(poses, height, width,
                                draw_body=True, draw_hand=True, draw_face=True)
-            # print(f'postImg: {poses} {type(poses)}')
             # poses = Image.fromarray(poses)
             print(f'postImg: {poses} {type(poses)}')
             # poses.save(os.path.normpath(os.path.join(assetsPath, file_name + '.png')))
             return poses
-            # img = Image.open("D:\\AI\\images\\202309162134.jpg")
-            # img = np.array(img)
-            # print(f'postImg: {img} {type(img)}')
-            # return img
 
     def ui(self, is_img2img):
         """this function should create gradio UI elements. See https://gradio.app/docs/#components
@@ -393,7 +401,7 @@ class Script(scripts.Script):
                                             value=f"{prefix} {value}", elem_id=f"{elem_id_tabname}_textarea_{i}"),)
 
             def reloadData():
-                self.json = loadAssetsFiles()
+                self.json = findAllFiles()
                 return self.json
 
             btnreload.click(fn=reloadData, inputs=None, outputs=textarea)
