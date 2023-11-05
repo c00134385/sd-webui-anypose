@@ -367,7 +367,10 @@ class Script(scripts.Script):
                 btnreload = gr.Button(
                     '🔄', elem_classes="anypose-reload sm secondary gradio-button svelte-1ipelgc")
                 with gr.Row():
-                    self.poseImage = gr.Image().style(height=242)
+                    with gr.Column():
+                        self.poseImage = gr.Image(elem_id=f"{prefix}_anypose_image").style(height=242)
+                        save2PNG = gr.Button(value='Save to PNG file')
+                        send2CN = gr.Button(value='Send to ControlNet')
                     with gr.Tabs(elem_id=f"{elem_id_tabname}_tabs", scale=2):
                         # 将 JSON 对象转换为 Python 字典
                         params_json = json.loads(self.json)
@@ -405,5 +408,13 @@ class Script(scripts.Script):
                 return self.json
 
             btnreload.click(fn=reloadData, inputs=None, outputs=textarea)
+
+        def saveToPngImage():
+            print("sendToControlNet")
+            self.poseImage.save_uploaded_file('test.png')
+
+        # save2PNG.click(fn=saveToPngImage, inputs=None, outputs=None)
+        save2PNG.click(None, [], None, _js="anypose_saveImage")
+        send2CN.click(None, [], None, _js="anypose_sendImage")
 
         return controls
